@@ -1,55 +1,49 @@
-import React from 'react';
+import React, { Component} from 'react';
 import './App.css';
 
-import { albums, thriller } from './data';
+import Counter from './counter/counter';
 
-import Card from './cards/cards';
+class App extends Component {
 
-function App() {
-  // console.log(names)
-  // const pluralNames = names.map(name => name + 's');
-  // console.log(pluralNames)
-  // console.log(names)
-
-  const onButtonHandler = () => {
-    console.log('I\'ve been clicked');
+  state = {
+    totalCounter: 0,
+    lastClickedName: '',
   }
 
-  return (
-    <section className="App">
-      <article className="card-container">
+  updateTotalCounter = (componentName) => {
+    this.setState({
+      totalCounter: this.state.totalCounter + 1,
+      lastClickedName: componentName,
+    })
+  };
 
-      {/* {albums.map((album) => {
-        return <li key={album}>{album}</li>
-      })} */}
+  render() {
+    return (
+      <section className="App">
 
-       {albums.map((item) => {
-        const hasThreeLetters = item.length <= 3; // condition
-        return !hasThreeLetters ? 
-          <Card
-            key={item}
-            onHandler={onButtonHandler}
-            cardname={item}
-          /> //statement
-          : '-'
-       })}    
-      </article>
+        <h1>Total counter: { this.state.totalCounter }</h1>
+        <h2>Last clicked: { this.state.lastClickedName }</h2>
 
-      
-      <hr />
+        <section className="container">
 
-      <article className="card-container">
-       <h1>Thriller album</h1>
-       {thriller.map((song) => 
-        <Card
-          key={song.index}
-          cardname={song.title}
-          {...song}
-        />)}
+          <Counter onUpdateCounter={this.updateTotalCounter} idname="counter one" counterColor="rebeccapurple" />
+          <Counter onUpdateCounter={this.updateTotalCounter} idname="counter two" />
+          <Counter onUpdateCounter={this.updateTotalCounter} idname="counter three" />
 
-      </article>
-    </section>
-  );
+          {/* <article className="card">
+            <span className="counter">{ this.state.totalCounter }</span>
+            <button className="btn" onClick={this.updateCounter}>update counter</button>
+          </article>
+
+          <article className="card">
+            <span className="counter">{ this.state.totalCounter }</span>
+            <button className="btn" onClick={this.updateCounter}>update counter</button>
+          </article> */}
+
+        </section>
+      </section>
+    );
+  }
 }
 
 export default App;
