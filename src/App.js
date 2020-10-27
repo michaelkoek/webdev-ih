@@ -1,55 +1,85 @@
-import React from 'react';
+import React, { Component} from 'react';
 import './App.css';
 
-import { albums, thriller } from './data';
+// import Counter from './counter/counter';
+import Button from './button';
 
-import Card from './cards/cards';
+class App extends Component {
 
-function App() {
-  // console.log(names)
-  // const pluralNames = names.map(name => name + 's');
-  // console.log(pluralNames)
-  // console.log(names)
-
-  const onButtonHandler = () => {
-    console.log('I\'ve been clicked');
+  state = {
+    totalCounter: 0,
+    lastClickedName: '',
   }
 
-  return (
-    <section className="App">
-      <article className="card-container">
+  updateTotalCounter = (componentName) => {
+    this.setState({
+      totalCounter: this.state.totalCounter + 1,
+      lastClickedName: componentName,
+    })
+  };
 
-      {/* {albums.map((album) => {
-        return <li key={album}>{album}</li>
-      })} */}
+  sendMyForm = (event) => {
+    event.preventDefault();
+  }
 
-       {albums.map((item) => {
-        const hasThreeLetters = item.length <= 3; // condition
-        return !hasThreeLetters ? 
-          <Card
-            key={item}
-            onHandler={onButtonHandler}
-            cardname={item}
-          /> //statement
-          : '-'
-       })}    
-      </article>
+  render() {
 
-      
-      <hr />
+    const myObject = {
+      glasses: true,
+      human: true,
+      train: {
+        type: 'sprinter',
+        name: 'NS'
+      },
+    }
 
-      <article className="card-container">
-       <h1>Thriller album</h1>
-       {thriller.map((song) => 
-        <Card
-          key={song.index}
-          cardname={song.title}
-          {...song}
-        />)}
+    
+    const naamTrein = myObject.train.name;
 
-      </article>
-    </section>
-  );
+    const { name, type } = myObject.train;
+    // vertraling
+    // const name = myObject.train.name;
+    // const type = myObject.train.type;
+
+
+    console.log(name, type);
+
+
+    return (
+      <section className="App">
+
+        {/* <form onSubmit={this.sendMyForm}>
+          <input type="text" />
+          <button type="submit">Sending</button>
+        </form> */}
+
+      <Button mytypebutton="primary" mytitle="click on me" />
+      <Button mytypebutton="seconary" mytitle="self destruct button" />
+      {/* <Counter onUpdateCounter={this.updateTotalCounter} idname="counter three" /> */}
+
+        {/* <h1>Total counter: { this.state.totalCounter }</h1>
+        <h2>Last clicked: { this.state.lastClickedName }</h2>
+
+        <section className="container">
+
+          <Counter onUpdateCounter={this.updateTotalCounter} idname="counter one" counterColor="rebeccapurple" />
+          <Counter onUpdateCounter={this.updateTotalCounter} idname="counter two" />
+          <Counter onUpdateCounter={this.updateTotalCounter} idname="counter three" /> */}
+
+          {/* <article className="card">
+            <span className="counter">{ this.state.totalCounter }</span>
+            <button className="btn" onClick={this.updateCounter}>update counter</button>
+          </article>
+
+          <article className="card">
+            <span className="counter">{ this.state.totalCounter }</span>
+            <button className="btn" onClick={this.updateCounter}>update counter</button>
+          </article> */}
+
+        {/* </section> */}
+      </section>
+    );
+  }
 }
 
 export default App;
